@@ -23,8 +23,8 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    # AUTH
-    path('signup', views.SignUp.as_view(), name='signup'),
+    # AUTH  ADD BACKSLASH TO NAME OF PATH OTHERWISE YOU GET ERROR FROM SERVER !!
+    path('signup/', views.SignUp.as_view(), name='signup'),
     path('login', auth_views.LoginView.as_view(), name='login'),
     path('logout', auth_views.LogoutView.as_view(), name='logout'),
 ]
