@@ -17,7 +17,7 @@ def add_video(request, pk):  #this is the pk of the hall the user is looking at
     if request.method == 'POST':
         # Create a Video object (from .models Video is imported, above)
         filled_form = VideoForm(request.POST)
-        if filled_form._valid():
+        if filled_form.is_valid():
             video = Video()
             video.url = filled_form.cleaned_data['url']
             video.title = filled_form.cleaned_data['title']
