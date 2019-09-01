@@ -34,3 +34,8 @@ class CreateHall(generic.CreateView):
         form.instance.user = self.request.user
         super(CreateHall, self).form_valid(form)
         return redirect('home')
+
+# CRUD: Read - user should be able to see details, without changing anything
+class DetailHall(generic.DetailView):
+    model = Hall
+    template_name = 'halls/detail_hall.html'
