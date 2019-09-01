@@ -8,6 +8,7 @@
     {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Save</button>
   </form>
-  <a href="{% url 'delete_hall'} class="btn btn-danger"">Do you want to delete this hall of fame?</a>
+  <br>
+  <a href="{% url 'delete_hall' hall.id %}" class="btn btn-danger">Delete this hall of fame</a>
 </div>
 {% endblock %}
