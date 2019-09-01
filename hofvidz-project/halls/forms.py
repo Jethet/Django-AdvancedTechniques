@@ -7,5 +7,6 @@ from django import forms
 # we import Video, so this is the model passed into this.
 
 class VideoForm(forms.ModelForm):
-    model = Video
-    fields = ['title', 'url', 'youtube_id']
+    class Meta:
+        model = Video
+        fields = ['title', 'url', 'youtube_id']
