@@ -13,7 +13,7 @@ def dashboard(request):
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('dashboard')
     template_name = 'registration/signup.html'
     # This is meant to combine the user's signup with the creation of a hall:
     def form_valid(self, form):
@@ -39,3 +39,10 @@ class CreateHall(generic.CreateView):
 class DetailHall(generic.DetailView):
     model = Hall
     template_name = 'halls/detail_hall.html'
+
+# CRUD: Update
+class UpdateHall(generic.UpdateView):
+    model = Hall
+    template_name = 'halls/update_hall.html'
+    fields = ['title']
+    success_url = reverse_lazy('dashboard')
