@@ -5,7 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from .models import Hall, Video
 from .forms import VideoForm, SearchForm
-from django.forms import formset_factory
 
 def home(request):
     return render(request, 'halls/home.html')
@@ -15,20 +14,22 @@ def dashboard(request):
 
 def add_video(request, pk):  #this is the pk of the hall the user is looking at
     # With formset_factory you can create a specified number of one form on the page:
-    VideoFormSet = formset_factory(VideoForm, extra=5)
+    # code would be: VideoFormSet = formset_factory(VideoForm, extra=5)
+    # !You would need to replace VideoForm with VideoFormSet in all the code!
     # The brackets mean that an object will be instantiated when calling this
-    form = VideoFormSet()
+    form = VideoForm()
     search_form = SearchForm()
     if request.method == 'POST':
         # Create a Video object (from .models Video is imported, above)
         filled_form = VideoForm(request.POST)
         if filled_form.is_valid():
-            video = Video()
-            video.url = filled_form.cleaned_data['url']
-            video.title = filled_form.cleaned_data['title']
-            video.youtube_id = filled_form.cleaned_data['youtube_id']
-            video.hall = Hall.objects.get(pk=pk)
-            video.save()
+                for form in filled_form:
+                    video = Video()
+                    video.url = filled_form.cleaned_data['url']
+                    video.title = filled_form.cleaned_data['title']
+                    video.youtube_id = filled_form.cleaned_data['youtube_id']
+                    video.hall = Hall.objects.get(pk=pk)
+                    video.save()
 
     return render(request, 'halls/add_video.html', {'form':form, 'search_form':search_form})
 
