@@ -7,7 +7,7 @@ from .models import Hall, Video
 from .forms import VideoForm, SearchForm
 from django.http import Http404
 import urllib
-import requests
+import requests # this has to be installed with pipenv
 from django.forms.utils import ErrorList
 
 YOUTUBE_API_KEY = 'AIzaSyAi8koxjjBI-An8Ayo62-sxQOaIEV6qfjk'
@@ -30,11 +30,11 @@ def add_video(request, pk):  #this is the pk of the hall the user is looking at
         raise Http404
     if request.method == 'POST':
         # Create a Video object (from .models Video is imported, above)
-        filled_form = VideoForm(request.POST)
-        if filled_form.is_valid():
+        form = VideoForm(request.POST)
+        if form.is_valid():
             video = Video()
             video.hall = hall
-            video.url = filled_form.cleaned_data['url']
+            video.url = form.cleaned_data['url']
             parsed_url = urllib.parse.urlparse(video.url)
             video_id = urllib.parse.parse_qs(parsed_url.query).get('v')
             if video_id:
@@ -42,9 +42,13 @@ def add_video(request, pk):  #this is the pk of the hall the user is looking at
                 response = requests.get(f'https://www.googleapis.com/youtube/v3/videos?part=snippet&id={ video_id[0] }&key={YOUTUBE_API_KEY}')
                 json = response.json()
                 title = json['items'][0]['snippet']['title']
-                print(title)
-                #video.title =
-                #video.save()
+                video.title = title
+                video.save()
+                return redirect('detail_hall', pk)
+            else:
+                errors = form._errors.setdefault('url', ErrorList())
+                errors.append('Needs to be a YouTube URL')
+
 
     return render(request, 'halls/add_video.html', {'form':form, 'search_form':search_form, 'hall':hall})
 
