@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login
 from .models import Hall, Video
 from .forms import VideoForm, SearchForm
 
+YOUTUBE_API_KEY = 'AIzaSyAi8koxjjBI-An8Ayo62-sxQOaIEV6qfjk'
+
 def home(request):
     return render(request, 'halls/home.html')
 
