@@ -26,26 +26,25 @@ def add_video(request, pk):  #this is the pk of the hall the user is looking at
     form = VideoForm()
     search_form = SearchForm()
     hall = Hall.objects.get(pk=pk)
-    if not hall.user ==request.user:
+    if not hall.user == request.user:
         raise Http404
     if request.method == 'POST':
         # Create a Video object (from .models Video is imported, above)
         filled_form = VideoForm(request.POST)
         if filled_form.is_valid():
-                for form in filled_form:
-                    video = Video()
-                    video.hall = hall
-                    video.url = filled_form.cleaned_data['url']
-                    parsed_url = urllib.parse.urlparse(video.url)
-                    video_id = urllib.parse.parse_qs(parsed_url.query).get('v')
-                    if video_id:
-                        video.youtube_id = video_id[0]
-                        response = requests.get(f'https://www.googleapis.com/youtube/v3/videos?part=snippet&id={ video_id[0] }&key={YOUTUBE_API_KEY}')
-                        json = response.json()
-                        title = json['items'][0]['snippet']['title']
-                        print(title)
-                        #video.title =
-                        #video.save()
+            video = Video()
+            video.hall = hall
+            video.url = filled_form.cleaned_data['url']
+            parsed_url = urllib.parse.urlparse(video.url)
+            video_id = urllib.parse.parse_qs(parsed_url.query).get('v')
+            if video_id:
+                video.youtube_id = video_id[0]
+                response = requests.get(f'https://www.googleapis.com/youtube/v3/videos?part=snippet&id={ video_id[0] }&key={YOUTUBE_API_KEY}')
+                json = response.json()
+                title = json['items'][0]['snippet']['title']
+                print(title)
+                #video.title =
+                #video.save()
 
     return render(request, 'halls/add_video.html', {'form':form, 'search_form':search_form, 'hall':hall})
 
