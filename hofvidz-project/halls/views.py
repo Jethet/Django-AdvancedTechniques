@@ -53,7 +53,10 @@ def add_video(request, pk):  #this is the pk of the hall the user is looking at
     return render(request, 'halls/add_video.html', {'form':form, 'search_form':search_form, 'hall':hall})
 
 def video_search(request):
-    return JsonResponse()
+    search_form = SearchForm(request.GET)
+    if search_form.is_valid():
+        return JsonResponse({'Hello':search_form.cleaned_data['search_term']})
+    return JsonResponse({'Hello': 'Not working'})
     
 class SignUp(generic.CreateView):
     form_class = UserCreationForm

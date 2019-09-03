@@ -37,15 +37,16 @@
       clearTimeout(delayTimer);
       $('#search_results').text('Loading ...');
       delayTimer = setTimeout(function() {
+        var text = $('#id_search_term').val();
         $.ajax({
           url: '/video/search',
           data: {
-            'search_term': 'hello'
+            'search_term': text
           },
           dataType: 'json',
           success: function(data) {
-            $('#search_results').text('AJAX OK');
-          }
+            $('#search_results').text(data['Hello']);
+          },
         });
       }, 1000);
     });
