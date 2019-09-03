@@ -16,7 +16,8 @@ def home(request):
     return render(request, 'halls/home.html')
 
 def dashboard(request):
-    return render(request, 'halls/dashboard.html')
+    halls = Hall.objects.filter(user=request.user)
+    return render(request, 'halls/dashboard.html', {'halls':halls})
 
 def add_video(request, pk):  #this is the pk of the hall the user is looking at
     # With formset_factory you can create a specified number of one form on the page:
