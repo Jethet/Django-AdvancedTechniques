@@ -39,7 +39,7 @@ def add_video(request, pk):  #this is the pk of the hall the user is looking at
             video_id = urllib.parse.parse_qs(parsed_url.query).get('v')
             if video_id:
                 video.youtube_id = video_id[0]
-                response = requests.get(f'https://www.googleapis.com/youtube/v3/videos?part=snippet&id={ video_id[0] }&key={YOUTUBE_API_KEY}')
+                response = requests.get(f'https://www.googleapis.com/youtube/v3/videos?part=snippet&id={ video_id[0] }&key={ YOUTUBE_API_KEY }')
                 json = response.json()
                 title = json['items'][0]['snippet']['title']
                 video.title = title
