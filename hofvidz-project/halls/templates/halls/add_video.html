@@ -29,13 +29,16 @@
     </div>
     {% endfor %}
   </form>
-  <div class="search_results">
-    <script>
-      
 
-    </script>
+  <div id="search_results"></div>
+  <script>
+    var delayTimer;
+    $('#id_search_term').keyup(function() {
+      clearTimeout(delayTimer);
+      $('#search_results').text('Loading ...');
+    });
+  </script>
 
-  </div>
   <br>
 </div>
 {% endblock %}
