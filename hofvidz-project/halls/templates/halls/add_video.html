@@ -3,7 +3,7 @@
 {% block content %}
 <br>
 <div class="container">
-  <h2>Add Video</h2>
+  <h2>Add Video to {{ hall.title }}</h2>
   <form method="post">
     {% csrf_token %}
     {% load widget_tweaks %}
@@ -16,13 +16,26 @@
     </div>
     {% endfor %}
     <br>
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button type="submit" class="btn btn-primary">Add</button>
   </form>
   <br>
   <h2>or</h2>
   <form>
-    {{ search_form }}
+    {% for field in search_form %}
+    <div class="form-group">
+      {{ field.errors }}
+      {{ field.label_tag }}
+      {% render_field field class="form-control" %}
+    </div>
+    {% endfor %}
   </form>
+  <div class="search_results">
+    <script>
+      
+
+    </script>
+
+  </div>
   <br>
 </div>
 {% endblock %}
