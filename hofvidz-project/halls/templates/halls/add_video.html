@@ -45,7 +45,14 @@
           },
           dataType: 'json',
           success: function(data) {
-            $('#search_results').text(data['Hello']);
+            var results = '';
+            $('#search_results').text('');
+
+            data['items'].forEach(function(video) {
+              results += video['snippet']['title']
+            });
+
+            $('#search_results').append(results);
           },
         });
       }, 1000);
