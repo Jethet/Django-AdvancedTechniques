@@ -4,7 +4,7 @@
 <br>
 <div class="container">
   <h2>Add Video to {{ hall.title }}</h2>
-  <form method="post">
+  <form method="post" id="submit_video">
     {% csrf_token %}
     {% load widget_tweaks %}
 
@@ -57,7 +57,7 @@
 
               results += '<div class="card-body"><p class="card-text">' + video['snippet']['title'] + '</p>';
 
-              results += '<a href="#" class="btn btn-primary" onclick="addVideo()">Add</a></div></div></div>';
+              results += '<a href="#" class="btn btn-primary" onclick="addVideo(\'' + video['id']['videoId'] + '\')">Add</a></div></div></div>';
             });
             results += '</div>';
 
@@ -66,6 +66,11 @@
         });
       }, 1000);
     });
+
+    function addVideo(video_id) {
+      $('#id_url').val('https://www.youtube.com/watch?v=' + video_id);
+      $('#submit_video').submit();
+    }
   </script>
 
   <br>
