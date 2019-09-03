@@ -7,7 +7,7 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Delete</button>
+    <button type="submit" class="btn btn-danger">Delete</button>
   </form>
   <br>
   <h2><a href="{% url 'detail_hall' hall.id %}">{{ hall.title }}</a></h2>
