@@ -88,7 +88,7 @@ class CreateHall(generic.CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         super(CreateHall, self).form_valid(form)
-        return redirect('home')
+        return redirect('dashboard')
 
 # CRUD: Read - user should be able to see details, without changing anything
 class DetailHall(generic.DetailView):
