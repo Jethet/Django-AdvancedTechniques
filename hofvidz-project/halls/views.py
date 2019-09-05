@@ -121,7 +121,7 @@ class UpdateHall(LoginRequiredMixin, generic.UpdateView):
         hall = super(UpdateHall, self).get_object()
         if not hall.user == self.request.user:
             raise Http404
-        return video
+        return hall
 
 # CRUD: Delete
 class DeleteHall(LoginRequiredMixin, generic.DeleteView):
@@ -133,4 +133,4 @@ class DeleteHall(LoginRequiredMixin, generic.DeleteView):
         hall = super(DeleteHall, self).get_object()
         if not hall.user == self.request.user:
             raise Http404
-        return video
+        return hall
