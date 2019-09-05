@@ -6,9 +6,12 @@ from django.contrib.auth import authenticate, login
 from .models import Hall, Video
 from .forms import VideoForm, SearchForm
 from django.http import Http404, JsonResponse
+from django.forms.utils import ErrorList
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 import urllib
 import requests # this has to be installed with pipenv
-from django.forms.utils import ErrorList
+
 
 YOUTUBE_API_KEY = 'AIzaSyAi8koxjjBI-An8Ayo62-sxQOaIEV6qfjk'
 
@@ -17,10 +20,12 @@ def home(request):
     popular_halls = [Hall.objects.get(pk=1),Hall.objects.get(pk=2),Hall.objects.get(pk=3)]
     return render(request, 'halls/home.html', {'recent_halls':recent_halls, 'popular_halls':popular_halls})
 
+@login_required
 def dashboard(request):
     halls = Hall.objects.filter(user=request.user)
     return render(request, 'halls/dashboard.html', {'halls':halls})
 
+@login_required
 def add_video(request, pk):  #this is the pk of the hall the user is looking at
     # With formset_factory you can create a specified number of one form on the page:
     # code would be: VideoFormSet = formset_factory(VideoForm, extra=5)
@@ -55,6 +60,7 @@ def add_video(request, pk):  #this is the pk of the hall the user is looking at
 
     return render(request, 'halls/add_video.html', {'form':form, 'search_form':search_form, 'hall':hall})
 
+@login_required
 def video_search(request):
     search_form = SearchForm(request.GET)
     if search_form.is_valid():
@@ -63,7 +69,7 @@ def video_search(request):
         return JsonResponse(response.json())
     return JsonResponse({'error': 'Not able to validate form'})
 
-class DeleteVideo(generic.DeleteView):
+class DeleteVideo(LoginRequiredMixin, generic.DeleteView):
     model = Video
     template_name = 'halls/delete_video.html'
     success_url = reverse_lazy('dashboard')
@@ -82,7 +88,7 @@ class SignUp(generic.CreateView):
         return view
 
 # CRUD: Create a hall:
-class CreateHall(generic.CreateView):
+class CreateHall(LoginRequiredMixin, generic.CreateView):
     model = Hall
     fields = ['title']
     template_name = 'halls/create_hall.html'
@@ -99,14 +105,14 @@ class DetailHall(generic.DetailView):
     template_name = 'halls/detail_hall.html'
 
 # CRUD: Update
-class UpdateHall(generic.UpdateView):
+class UpdateHall(LoginRequiredMixin, generic.UpdateView):
     model = Hall
     template_name = 'halls/update_hall.html'
     fields = ['title']
     success_url = reverse_lazy('dashboard')
 
 # CRUD: Delete
-class DeleteHall(generic.DeleteView):
+class DeleteHall(LoginRequiredMixin, generic.DeleteView):
     model = Hall
     template_name = 'halls/delete_hall.html'
     success_url = reverse_lazy('dashboard')
