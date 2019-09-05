@@ -74,6 +74,12 @@ class DeleteVideo(LoginRequiredMixin, generic.DeleteView):
     template_name = 'halls/delete_video.html'
     success_url = reverse_lazy('dashboard')
 
+    def get_object(self):
+        video = super(DeleteVideo, self).get_object()
+        if not video.hall.user == self.request.user:
+            raise Http404
+        return video
+
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('dashboard')
