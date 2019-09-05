@@ -9,7 +9,7 @@
   {% if user.id == hall.user.id %}
   <a href="{% url 'delete_hall' hall.id %}" class="btn btn-danger">Delete</a>
   <a href="{% url 'update_hall' hall.id %}" class="btn btn-primary">Edit</a>
-  <a href="{% url 'add_video' hall.id %}" class="btn btn-primary">Add</a>
+  <a href="{% url 'add_video' hall.id %}" class="btn btn-primary">Add video</a>
   {% endif %}
 
   <div class="row">
