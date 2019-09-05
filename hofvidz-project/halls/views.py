@@ -72,6 +72,7 @@ class SignUp(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('dashboard')
     template_name = 'registration/signup.html'
+
     # This is meant to combine the user's signup with the creation of a hall:
     def form_valid(self, form):
         view = super(SignUp, self).form_valid(form)

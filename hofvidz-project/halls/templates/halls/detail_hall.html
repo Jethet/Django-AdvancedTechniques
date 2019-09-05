@@ -5,7 +5,7 @@
 <div class="container">
   <h1>{{ hall.title }}</h1>
   <h4 class='text-muted'>{{ hall.user.username }}</h4>
-
+  <br>
   {% if user.id == hall.user.id %}
   <a href="{% url 'delete_hall' hall.id %}" class="btn btn-danger">Delete</a>
   <a href="{% url 'update_hall' hall.id %}" class="btn btn-primary">Edit</a>
