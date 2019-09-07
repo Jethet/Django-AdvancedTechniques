@@ -26,7 +26,7 @@ SECRET_KEY = 'roa#^vqb_zd@c!mrfx%lol&-vg2j9o2_mi!k#8cb-*_dgg)%ry'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['obscure-garden-92261.herokuapp.com', 'sustainablebarcelona.org', 'www.sustainablebarcelona.org']
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
