@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'roa#^vqb_zd@c!mrfx%lol&-vg2j9o2_mi!k#8cb-*_dgg)%ry'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['obscure-garden-92261.herokuapp.com', 'sustainablebarcelona.org', 'www.sustainablebarcelona.org']
+ALLOWED_HOSTS = ['rocky-stream-21252.herokuapp.com', 'sustainablebarcelona.org', 'www.sustainablebarcelona.org']
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
