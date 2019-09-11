@@ -9,6 +9,7 @@ verify_ssl = true
 dj-database-url = "*"
 whitenoise = "*"
 django-heroku = "*"
+django-widget-tweaks = "*"
 
 [requires]
 python_version = "3.7"
